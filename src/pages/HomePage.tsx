@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { 
   PageContainer, 
   SectionTitle,
-  ImageContainer,
   HighlightText
 } from '../components/SharedStyles';
+import { theme } from '../theme';
 
 const HeroSection = styled.div`
   text-align: center;
@@ -18,6 +18,28 @@ const IntroText = styled.p`
   max-width: 800px;
   margin: 0 auto 2rem;
   text-align: center;
+`;
+
+const VideoContainer = styled.div`
+  width: 100%;
+  max-width: 640px; /* Reduced from 800px to make it smaller */
+  margin: 0 auto;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px ${theme.shadow};
+  
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover; /* Prevents stretching */
+  }
+  
+  video {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
 `;
 
 const HomePage = () => {
@@ -35,9 +57,14 @@ const HomePage = () => {
           <HighlightText> evidence-based practices</HighlightText>.
         </IntroText>
         
-        <ImageContainer>
-          <img src="/images/video-cover.jpg" alt="Digital Nursing Education" />
-        </ImageContainer>
+        <VideoContainer>
+          {/* First try to load the video, with fallback to image */}
+          <video controls poster="/images/video-cover.jpg">
+            <source src="/videos/video-introduction.mp4" type="video/mp4" />
+            {/* Fallback to image if video fails to load */}
+            <img src="/images/video-cover.jpg" alt="Portfolio Introduction" />
+          </video>
+        </VideoContainer>
       </HeroSection>
     </PageContainer>
   );
